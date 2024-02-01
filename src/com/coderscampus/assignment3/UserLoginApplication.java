@@ -9,9 +9,10 @@ public class UserLoginApplication {
 
 		UserService userService = new UserService();
 
-		User[] users;
+		User[] users = null;
 		try {
 			users = userService.readUserDataFromFile();
+			System.out.println("Number of users: " + users.length);
 		} catch (IOException e) {
 			System.out.println("Error reading user data from file: " + e.getMessage());
 			return;
