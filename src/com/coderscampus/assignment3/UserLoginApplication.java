@@ -18,22 +18,44 @@ public class UserLoginApplication {
 		}
 
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter you username:");
-		String usernameInput = scanner.nextLine();
-		System.out.println("Enter you password:");
-		String passwordInput = scanner.nextLine();
 
+		int attempts = 0;
 		boolean isLoggedIn = false;
-		for (User user : users) {
-			if (user.getUsername().equalsIgnoreCase(usernameInput) && user.getPassword().equals(passwordInput)) {
-				System.out.println("Welcome, " + user.getName());
+
+		while (attempts < 5 && !isLoggedIn) {
+			System.out.println("Enter your username: ");
+			String usernameInput = scanner.nextLine();
+			System.out.println("Enter your password: ");
+			String passwordInput = scanner.nextLine();
+
+			boolean usernameExists = userService.usernameExists(usernameInput);
+			if (!usernameExists) {
+				System.out.println("Username not found.");
+				attempts++;
+				if (attempts < 5) {
+					System.out.println("Invalid login, please try again. Attempts left: " + (5 - attempts));
+				}
+				continue;
+			}
+
+			boolean passwordCorrect = userService.validateUserCredentials(usernameInput, passwordInput);
+			if (passwordCorrect) {
+				System.out.println("Welcome, " + userService.getUserCredentials(usernameInput));
 				isLoggedIn = true;
-				break;
+			} else {
+				System.out.println("Incorrect password for the given username. Please try again.");
+				attempts++;
+				if (attempts < 5) {
+					System.out.println("Attempts left: " + (5 - attempts));
+				}
 			}
 		}
+
 		if (!isLoggedIn) {
-			System.out.println("Invalid login, please try again.");
+			System.out.println("Too many failed login attempts, you are now locked out.");
 		}
+
 		scanner.close();
 	}
+
 }
