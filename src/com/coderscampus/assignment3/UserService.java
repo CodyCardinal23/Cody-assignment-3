@@ -35,7 +35,7 @@ public class UserService {
 		}
 
 		for (User user : users) {
-			if (user.getUsername().equals(username)) {
+			if (user.getUsername().equalsIgnoreCase(username)) {
 				return true;
 			}
 		}
@@ -53,7 +53,7 @@ public class UserService {
 		}
 
 		for (User user : users) {
-			if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+			if (user.getUsername().equalsIgnoreCase(username) && user.getPassword().equals(password)) {
 				return true;
 			}
 		}
@@ -71,7 +71,7 @@ public class UserService {
 		}
 
 		for (User user : users) {
-			if (user.getUsername().equals(usernameInput)) {
+			if (user.getUsername().equalsIgnoreCase(usernameInput)) {
 				return user.getName();
 			}
 		}
@@ -89,7 +89,7 @@ public class UserService {
 		}
 
 		for (User user : users) {
-			if (user.getUsername().equals(username)) {
+			if (user.getUsername().equalsIgnoreCase(username)) {
 				return true;
 			}
 		}
@@ -107,7 +107,7 @@ public class UserService {
 		}
 
 		for (User user : users) {
-			if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+			if (user.getUsername().equalsIgnoreCase(username) && user.getPassword().equals(password)) {
 				return true;
 			}
 		}
